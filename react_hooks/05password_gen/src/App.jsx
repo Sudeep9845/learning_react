@@ -1,13 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 const App = () => {
+	// State hooks to manage the password string and configuration settings
 	const [password, setPassword] = useState("");
 	const [passwordLength, setPasswordLength] = useState(8);
 	const [includeNumbers, setIncludeNumbers] = useState(false);
 	const [includeSymbols, setIncludeSymbols] = useState(false);
 
+	// useRef hook to hold a reference to the input element for selection purposes
 	const passwordRef = useRef(null);
 
+	// useCallback hook to memoize the password generation logic
+	// This prevents the function from being recreated on every render unless dependencies change
 	const generatePassword = useCallback(() => {
 		let pass = "";
 		let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -21,11 +25,13 @@ const App = () => {
 		setPassword(pass);
 	}, [passwordLength, includeNumbers, includeSymbols]);
 
+	// Function to copy the password to the clipboard and visually select the text
 	const copyPassword = () => {
 		window.navigator.clipboard.writeText(password);
 		passwordRef.current?.select();
 	};
 
+	// useEffect hook to automatically generate a new password when dependencies change
 	useEffect(() => {
 		generatePassword();
 	}, [passwordLength, includeNumbers, includeSymbols, generatePassword]);
