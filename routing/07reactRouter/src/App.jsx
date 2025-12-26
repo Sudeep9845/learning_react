@@ -6,9 +6,9 @@ import {
 	RouterProvider,
 } from "react-router-dom";
 import Layout from "./Layout";
-import { About, Home, Github } from "./pages";
+import { About, Home, Github,User } from "./pages";
 import { getGithubUserData } from "./data/getGithubUserData";
-import User from "./pages/User";
+
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
